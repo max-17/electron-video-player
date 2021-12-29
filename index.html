@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'"
+        />
+        <meta
+            http-equiv="X-Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'"
+        /> -->
+    <title>Video player</title>
+    <link rel="stylesheet" href="node_modules/video.js//dist/video-js.css" />
+    <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="sources/style.css" />
+    <script src="sources/jquery-3.6.0.slim.min.js"></script>
+</head>
+
+<body>
+    <div class="m-1">
+        <div class="row justify-content-around p-0">
+            <div class="col-lg-8 col-12 px-2 mb-3 sticky-top">
+
+                <video class="video-js vjs-default-skin vjs-big-play-centered" id="my-player" width="100%" height="auto"
+                    controls preload="none" ondragover="event.stopPropagation(); event.preventDefault();"
+                    ondrop="drop(event);"></video>
+            </div>
+
+            <div class="playlist-container col-lg-3 col-10 p-1 border mb-3">
+                <div class="list-group mb-2" id="playlist-header">
+                    <div class="list-group-item list-group-item-action active" id="playlist-item" data-bs-toggle="list"
+                        role="tab" onclick="play(id);">Playlist</div>
+                </div>
+                <div class="list-group" id="playlist" role="tablist">
+
+                </div>
+
+
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="sources\bootstrap\popper.min.js"></script>
+    <script src="sources\bootstrap\js\bootstrap.min.js"></script>
+    <script src="node_modules\video.js\dist\video.min.js"></script>
+    <script src="node_modules\videojs-playlist\dist\videojs-playlist.min.js"></script>
+    <script src="node_modules\videojs-hotkeys\videojs.hotkeys.js"></script>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

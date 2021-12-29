@@ -1,0 +1,49 @@
+.row {
+    padding: 0;
+    margin: 0;
+}
+body {
+    margin: 0 !important;
+    background-color: rgb(47, 48, 56) !important;
+}
+
+/* Show the controls (hidden at the start by default) */
+.video-js .vjs-control-bar {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/* Make the demo a little prettier */
+body {
+    margin-top: 20px;
+    background: white;
+    text-align: center;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a,
+a:hover,
+a:visited {
+    color: #76daff;
+}
+
+#input {
+    display: block;
+    position: absolute;
+}
+/* 
+#playlist,
+#playlist-header {
+    width: 500px;
+} */
+
+/* #playlist > li {
+    width: 100%;
+    color: black;
+    background-color: white;
+    cursor: default;
+    border: 1px solid darkgrey;
+} */
