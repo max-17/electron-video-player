@@ -22,14 +22,14 @@
 <body>
     <div class="m-1">
         <div class="row justify-content-around p-0">
-            <div class="col-lg-8 col-12 px-2 mb-3 sticky-top">
+            <div class="col-lg-9 col-md-8 col-12 px-2 mb-3 sticky-top">
 
-                <video class="video-js vjs-default-skin vjs-big-play-centered" id="my-player" width="100%" height="auto"
-                    controls preload="none" ondragover="event.stopPropagation(); event.preventDefault();"
+                <video class="video-js vjs-default-skin vjs-big-play-centered sticky-top" id="my-player" width="100%"
+                    height="auto" controls preload="none" ondragover="event.stopPropagation(); event.preventDefault();"
                     ondrop="drop(event);"></video>
             </div>
 
-            <div class="playlist-container col-lg-3 col-10 p-1 border mb-3">
+            <div class="playlist-container col-md-4 col-lg-3  col-10 p-1 border mb-3">
                 <div class="list-group mb-2" id="playlist-header">
                     <div class="list-group-item list-group-item-action active" id="playlist-item" data-bs-toggle="list"
                         role="tab" onclick="play(id);">Playlist</div>

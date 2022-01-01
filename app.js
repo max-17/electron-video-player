@@ -1,6 +1,4 @@
 let playlist = [];
-// let url =
-//     'http://localhost:8080/django part 2/2-BBuilding RESTful APIs with Django REST Framework/';
 
 window.HELP_IMPROVE_VIDEOJS = false;
 
@@ -31,10 +29,17 @@ var nextButton = new button(player, {
         player.play();
     },
 });
+
 nextButton.addClass('vjs-icon-next-item');
 
 // add button to player
 player.controlBar.addChild(nextButton, {}, 1);
+
+// on switching to a new content source within a playlist
+player.on('playlistitem', function () {
+    //clicking the playlist item to make it active (bootstrap active tab-item)
+    $('#' + player.playlist.currentIndex())[0].click();
+});
 
 // ondrop function
 let files;
@@ -49,13 +54,14 @@ function drop(event) {
     );
 
     //adding videos to playlist
-    files.forEach((element) => {
+    files.forEach((element, index) => {
         playlist.push({
             sources: [
                 {
                     src: element.path,
                     type: 'video/mp4',
                     name: element.name,
+                    // id: index,
                 },
             ],
         });
@@ -83,13 +89,6 @@ function drop(event) {
     $('#playlist> div')[0].classList.add('active');
     $('#playlist-header> div ')[0].classList.add('active');
 }
-
-// function playVideo(name) {
-//     if (name != '') {
-//         player.src(url + name);
-//         player.play();
-//     }
-// }
 
 function play(id) {
     if (id != '') {
