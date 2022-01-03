@@ -21,25 +21,22 @@
 
 <body>
     <div class="m-1">
-        <div class="row justify-content-around p-0">
-            <div class="col-lg-9 col-md-8 col-12 px-2 mb-3 sticky-top">
+        <div class="row justify-content-around p-0" id='row'>
+            <div class="col-xl-9 col-12 px-2 mb-3 vh-lg-100" id='video-container'>
 
-                <video class="video-js vjs-default-skin vjs-big-play-centered sticky-top" id="my-player" width="100%"
-                    height="auto" controls preload="none" ondragover="event.stopPropagation(); event.preventDefault();"
-                    ondrop="drop(event);"></video>
+                <video class="video-js vjs-default-skin vjs-big-play-centered" id="my-player" controls preload="none"
+                    ondragover="event.stopPropagation(); event.preventDefault();" ondrop="drop(event);">
+                </video>
             </div>
 
-            <div class="playlist-container col-md-4 col-lg-3  col-10 p-1 border mb-3">
+            <div class="playlist-container col-xl-3 col-10 p-1 border mb-3">
                 <div class="list-group mb-2" id="playlist-header">
                     <div class="list-group-item list-group-item-action active" id="playlist-item" data-bs-toggle="list"
                         role="tab" onclick="play(id);">Playlist</div>
                 </div>
-                <div class="list-group" id="playlist" role="tablist">
+                <div class="list-group overflow-auto" id="playlist" role="tablist">
 
                 </div>
-
-
-                <ul></ul>
             </div>
         </div>
     </div>
@@ -49,6 +46,7 @@
     <script src="node_modules\video.js\dist\video.min.js"></script>
     <script src="node_modules\videojs-playlist\dist\videojs-playlist.min.js"></script>
     <script src="node_modules\videojs-hotkeys\videojs.hotkeys.js"></script>
+
 
     <script src="app.js"></script>
 </body>

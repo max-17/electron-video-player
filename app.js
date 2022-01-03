@@ -6,8 +6,6 @@ window.HELP_IMPROVE_VIDEOJS = false;
 var player = videojs('my-player', {
     controls: true,
     preload: 'auto',
-    aspectRatio: '16:9',
-    fluid: true,
     playbackRates: [1, 1.25, 1.5, 1.75],
 });
 
@@ -19,6 +17,8 @@ player.ready(function () {
         enableVolumeScroll: false,
         enableModifiersForNumbers: false,
     });
+    //resize video container
+    resizeVideoContainer();
 });
 
 //create custom button => nextButton
@@ -49,9 +49,7 @@ function drop(event) {
     files = event.dataTransfer.files;
 
     // converting fileList to array to sort by object name
-    files = Array.from(files).sort((a, b) =>
-        a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-    );
+    files = Array.from(files).sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
 
     //adding videos to playlist
     files.forEach((element, index) => {
@@ -72,7 +70,6 @@ function drop(event) {
     //play first video on playlist
     player.playlist.autoadvance(1);
     player.play();
-
     // empty previous playlist
     $('#playlist').empty();
 
@@ -88,6 +85,28 @@ function drop(event) {
     }
     $('#playlist> div')[0].classList.add('active');
     $('#playlist-header> div ')[0].classList.add('active');
+}
+
+window.onresize = () => {
+    resizeVideoContainer();
+};
+
+function resizeVideoContainer() {
+    let videoContainer = $('#video-container')[0];
+    const aspectRatio = 16 / 9;
+
+    if (videoContainer.offsetWidth / videoContainer.offsetHeight < aspectRatio) {
+        console.log('video height: ', videoContainer.offsetHeight);
+        console.log('video width: ', videoContainer.offsetWidth);
+        videoContainer.style.height = parseInt(videoContainer.offsetWidth / aspectRatio) + 'px';
+    }
+    //line break
+    else if (videoContainer.offsetWidth / videoContainer.offsetHeight > aspectRatio) {
+        videoContainer.style.height =
+            parseInt(videoContainer.offsetWidth / aspectRatio) <= window.innerHeight //if it fits the window
+                ? parseInt(videoContainer.offsetWidth / aspectRatio) + 'px' // set video container height according to aspect ratio
+                : window.innerHeight + 'px'; //otherwise set it to window heght
+    }
 }
 
 function play(id) {

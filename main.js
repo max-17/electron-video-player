@@ -5,7 +5,7 @@ const path = require('path');
 function createWindow() {
     const win = new BrowserWindow({
         width: 1000,
-        height: 680,
+        height: 600,
         minWidth: 500,
         minHeight: 400,
         title: 'Video player',

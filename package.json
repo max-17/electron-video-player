@@ -1,20 +1,21 @@
 {
-  "name": "video-player",
-  "version": "1.0.0",
-  "description": "youtube-like video  player to play local videos",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
-  },
-  "author": "Max",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^16.0.5",
-    "video.js": "^7.17.0"
-  },
-  "dependencies": {
-    "videojs-hotkeys": "^0.2.27",
-    "videojs-playlist": "^5.0.0"
-  }
+    "name": "video-player",
+    "version": "1.0.0",
+    "description": "youtube-like video  player to play local videos",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "electron ."
+    },
+    "author": "Max",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^16.0.5",
+        "electron-packager": "^15.4.0"
+    },
+    "dependencies": {
+        "video.js": "^7.17.0",
+        "videojs-hotkeys": "^0.2.27",
+        "videojs-playlist": "^5.0.0"
+    }
 }
