@@ -42,28 +42,6 @@ player.on('playlistitem', function () {
     $('#' + player.playlist.currentIndex())[0].click();
 });
 
-    player.playlist(playlist);
-
-    //play first video on playlist
-    player.playlist.autoadvance(1);
-    player.play();
-    // empty previous playlist
-    $('#playlist').empty();
-
-    for (var i = 0; i < files.length; i++) {
-        //creating playlist-item and adding to the playlist
-        var playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
-        playlist_item.classList.remove('active');
-        playlist_item.classList.add('d-flex');
-        playlist_item.id = i;
-        playlist_item.name = files[i].name;
-        playlist_item.innerHTML = files[i].name;
-        $('#playlist')[0].appendChild(playlist_item);
-    }
-    $('#playlist> div')[0].classList.add('active');
-    $('#playlist-header> div ')[0].classList.add('active');
-}
-
 window.onresize = () => {
     resizeVideoContainer();
 };
@@ -94,6 +72,27 @@ function drop(event) {
             ],
         });
     });
+    player.playlist(playlist);
+
+    //play first video on playlist
+    player.playlist.autoadvance(1);
+    player.play();
+    // empty previous playlist
+    $('#playlist').empty();
+
+    for (var i = 0; i < files.length; i++) {
+        //creating playlist-item and adding to the playlist
+        var playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
+        playlist_item.classList.remove('active');
+        playlist_item.classList.add('d-flex');
+        playlist_item.id = i;
+        playlist_item.name = files[i].name;
+        playlist_item.innerHTML = files[i].name;
+        $('#playlist')[0].appendChild(playlist_item);
+    }
+    $('#playlist> div')[0].classList.add('active');
+    $('#playlist-header> div ')[0].classList.add('active');
+}
 
 function resizeVideoContainer() {
     let videoContainer = $('#video-container')[0];
