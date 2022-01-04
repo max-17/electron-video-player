@@ -1,4 +1,5 @@
 let playlist = [];
+let files;
 
 window.HELP_IMPROVE_VIDEOJS = false;
 
@@ -41,30 +42,6 @@ player.on('playlistitem', function () {
     $('#' + player.playlist.currentIndex())[0].click();
 });
 
-// ondrop function
-let files;
-function drop(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    files = event.dataTransfer.files;
-
-    // converting fileList to array to sort by object name
-    files = Array.from(files).sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-
-    //adding videos to playlist
-    files.forEach((element, index) => {
-        playlist.push({
-            sources: [
-                {
-                    src: element.path,
-                    type: 'video/mp4',
-                    name: element.name,
-                    // id: index,
-                },
-            ],
-        });
-    });
-
     player.playlist(playlist);
 
     //play first video on playlist
@@ -91,13 +68,38 @@ window.onresize = () => {
     resizeVideoContainer();
 };
 
+// ondrop function
+function drop(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    files = event.dataTransfer.files;
+
+    // converting fileList to array to sort by object name
+    files = Array.from(files).sort((a, b) =>
+        a.name.localeCompare(b.name, navigator.languages[0] || navigator.language, {
+            numeric: true,
+            ignorePunctuation: true,
+        })
+    );
+    //adding videos to playlist
+    files.forEach((element, index) => {
+        playlist.push({
+            sources: [
+                {
+                    src: element.path,
+                    type: 'video/mp4',
+                    name: element.name,
+                    // id: index,
+                },
+            ],
+        });
+    });
+
 function resizeVideoContainer() {
     let videoContainer = $('#video-container')[0];
     const aspectRatio = 16 / 9;
 
     if (videoContainer.offsetWidth / videoContainer.offsetHeight < aspectRatio) {
-        console.log('video height: ', videoContainer.offsetHeight);
-        console.log('video width: ', videoContainer.offsetWidth);
         videoContainer.style.height = parseInt(videoContainer.offsetWidth / aspectRatio) + 'px';
     }
     //line break

@@ -20,21 +20,22 @@
 </head>
 
 <body>
-    <div class="m-1">
-        <div class="row justify-content-around p-0" id='row'>
-            <div class="col-xl-9 col-12 px-2 mb-3 vh-lg-100" id='video-container'>
+    <div class="container-fuild">
+        <div class="row justify-content-around p-0 m-0" id='row'>
+            <div class="col-xl-9 col-12 sticky-xl-top p-1 my-0" id='video-container'>
 
-                <video class="video-js vjs-default-skin vjs-big-play-centered" id="my-player" controls preload="none"
-                    ondragover="event.stopPropagation(); event.preventDefault();" ondrop="drop(event);">
+                <video class="video-js vjs-default-skin vjs-big-play-centered py-0" id="my-player" controls
+                    preload="none" ondragover="event.stopPropagation(); event.preventDefault();" ondrop="drop(event);">
                 </video>
             </div>
 
-            <div class="playlist-container col-xl-3 col-10 p-1 border mb-3">
+            <div class="playlist-container col-xl-3 col-10 p-1 border">
                 <div class="list-group mb-2" id="playlist-header">
-                    <div class="list-group-item list-group-item-action active" id="playlist-item" data-bs-toggle="list"
-                        role="tab" onclick="play(id);">Playlist</div>
+                    <div class="list-group-item list-group-item-action overflow-hidden active" id="playlist-item"
+                        data-bs-toggle="list" role="tab" onclick="play(id);">Playlist</div>
                 </div>
-                <div class="list-group overflow-auto" id="playlist" role="tablist">
+                <hr class="bg-white">
+                <div class="list-group overflow-auto vh-80" id="playlist" role="tablist">
 
                 </div>
             </div>

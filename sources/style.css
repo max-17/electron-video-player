@@ -50,3 +50,16 @@ a:visited {
 #playlist {
     height: min-content;
 }
+#playlist > .list-group-item {
+    cursor: default;
+}
+
+.list-group-item {
+    white-space: nowrap;
+    color: white;
+    background: unset;
+}
+
+hr {
+    opacity: 1;
+}
