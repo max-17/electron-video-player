@@ -20,7 +20,7 @@
     <body>
         <div class="container-fuild">
             <div class="row justify-content-around p-0 m-0" id="row">
-                <div class="col-xl-9 col-12 sticky-xl-top p-1 my-0" id="video-container">
+                <div class="col sticky-xl-top p-0 m-0" id="video-container">
                     <video
                         class="video-js vjs-default-skin vjs-big-play-centered py-0"
                         id="my-player"
@@ -31,7 +31,7 @@
                     ></video>
                 </div>
 
-                <div class="playlist-container col-xl-3 col-10 p-1 border">
+                <div class="playlist-container p-1 mb-0 m-1 border resize">
                     <div class="list-group mb-2" id="playlist-header">
                         <div
                             class="list-group-item list-group-item-action overflow-hidden active"
@@ -49,6 +49,7 @@
             </div>
         </div>
         <script src="sources/jquery-3.6.0.slim.min.js"></script>
+        <script src="sources/interact.min.js"></script>
         <script src="sources\bootstrap\popper.min.js"></script>
         <script src="sources\bootstrap\js\bootstrap.min.js"></script>
         <script src="node_modules\video.js\dist\video.min.js"></script>
@@ -56,5 +57,6 @@
         <script src="node_modules\videojs-hotkeys\videojs.hotkeys.js"></script>
 
         <script src="app.js"></script>
+        <script src="index.js"></script>
     </body>
 </html>

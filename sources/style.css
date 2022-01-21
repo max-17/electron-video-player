@@ -47,6 +47,12 @@ a:visited {
     height: 100%;
     z-index: 10000;
 }
+
+.playlist-container {
+    width: 300px;
+    resize: horizontal;
+    margin: 1rem;
+}
 #playlist {
     height: min-content;
 }

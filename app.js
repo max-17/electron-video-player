@@ -1,5 +1,5 @@
 let playlist = [];
-let files;
+let files = [];
 
 window.HELP_IMPROVE_VIDEOJS = false;
 
@@ -27,7 +27,7 @@ player.ready(function () {
     if (window.myAPI) {
         let droppedFiles = [...window.myAPI.data];
         droppedFiles.shift();
-        // converting fileList to array to sort by object name
+
         createPlaylist(droppedFiles, playlist);
 
         this.playlist(playlist);
@@ -39,22 +39,29 @@ player.ready(function () {
     }
 });
 
-//create custom button => nextButton
+//create custom button => nextBtn
 var button = videojs.getComponent('Button');
-var nextButton = new button(player, {
+var nextBtn = new button(player, {
     clickHandler: function (event) {
         player.playlist.next();
         player.play();
     },
 });
+var playlsitToggleBtn = new button(player, {
+    clickHandler: function (event) {
+        //some actions
+        $('.playlist-container')[0].classList.toggle('d-none');
+        resizeVideoContainer();
+    },
+});
 
-nextButton.addClass('next-btn');
+// adding buttons to player
+player.controlBar.addChild(nextBtn, {}, 1);
+player.controlBar.addChild(playlsitToggleBtn, {});
 
-// add button to player
-player.controlBar.addChild(nextButton, {}, 1);
-
-// adding icon to the button
-$('.next-btn>.vjs-icon-placeholder')[0].classList.add('vjs-icon-next-item');
+// adding icons to the buttons
+nextBtn.$('.vjs-icon-placeholder').classList.add('vjs-icon-next-item');
+playlsitToggleBtn.$('.vjs-icon-placeholder').classList.add('vjs-icon-chapters');
 
 // on switching to a new content source within a playlist
 player.on('playlistitem', function () {
@@ -62,52 +69,24 @@ player.on('playlistitem', function () {
     $('#' + player.playlist.currentIndex())[0].click();
 });
 
-// ondrop function
+// ondrop function for native desktop drag and drop
 function drop(event) {
     event.stopPropagation();
     event.preventDefault();
-    files = event.dataTransfer.files;
+    // getting files
+    let fileObjects = [...event.dataTransfer.files];
 
     // converting fileList to array to sort by object name
-    files = Array.from(files).sort((a, b) =>
-        a.name.localeCompare(b.name, navigator.languages[0] || navigator.language, {
-            numeric: true,
-            ignorePunctuation: true,
-        })
-    );
-    //adding videos to playlist
-    files.forEach((element, index) => {
-        playlist.push({
-            sources: [
-                {
-                    src: element.path,
-                    type: 'video/mp4',
-                    name: element.name,
-                    // id: index,
-                },
-            ],
-        });
+    fileObjects.forEach((element) => {
+        files.push(element.path);
     });
-    player.playlist(playlist);
 
+    createPlaylist(files, playlist);
+
+    player.playlist(playlist);
     //play first video on playlist
     player.playlist.autoadvance(1);
     player.play();
-    // empty previous playlist
-    $('#playlist').empty();
-
-    for (var i = 0; i < files.length; i++) {
-        //creating playlist-item and adding to the playlist
-        var playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
-        playlist_item.classList.remove('active');
-        playlist_item.classList.add('d-flex');
-        playlist_item.id = i;
-        playlist_item.name = files[i].name;
-        playlist_item.innerHTML = files[i].name;
-        $('#playlist')[0].appendChild(playlist_item);
-    }
-    $('#playlist> div')[0].classList.add('active');
-    $('#playlist-header> div ')[0].classList.add('active');
 }
 
 function resizeVideoContainer() {
@@ -162,6 +141,7 @@ function createPlaylist(filePathArray, playlist) {
                 },
             ],
         });
+
         //creating playlist-item and adding to the playlist in DOM
         var playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
         playlist_item.classList.remove('active');
@@ -171,7 +151,6 @@ function createPlaylist(filePathArray, playlist) {
         playlist_item.innerHTML = fileNameFromPath(element);
         $('#playlist')[0].appendChild(playlist_item);
     });
-    for (var i = 0; i < filePathArray.length; i++) {}
 
     $('#playlist> div')[0].classList.add('active');
     $('#playlist-header> div ')[0].classList.add('active');
