@@ -1,5 +1,6 @@
 {
     "name": "video-player",
+    "productName": "video-player",
     "version": "1.0.0",
     "description": "youtube-like video  player to play local videos",
     "main": "main.js",
@@ -14,6 +15,7 @@
         "electron-packager": "^15.4.0"
     },
     "dependencies": {
+        "requirejs": "^2.3.6",
         "video.js": "^7.17.0",
         "videojs-hotkeys": "^0.2.27",
         "videojs-playlist": "^5.0.0"
