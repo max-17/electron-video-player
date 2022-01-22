@@ -12,10 +12,10 @@
     "license": "MIT",
     "devDependencies": {
         "electron": "^16.0.5",
-        "electron-packager": "^15.4.0"
+        "electron-packager": "^15.4.0",
+        "requirejs": "^2.3.6"
     },
     "dependencies": {
-        "requirejs": "^2.3.6",
         "video.js": "^7.17.0",
         "videojs-hotkeys": "^0.2.27",
         "videojs-playlist": "^5.0.0"

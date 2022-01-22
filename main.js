@@ -17,7 +17,7 @@ function createWindow() {
         webPreferences: {
             // nodeIntegration: true,
             // contextIsolation: false,
-            devTools: !app.isPackaged,
+            // devTools: !app.isPackaged,
             preload: path.join(__dirname, 'sources/preload.js'),
         },
     });

@@ -1,5 +1,5 @@
-let playlist = [];
 let files = [];
+let rate = 1;
 
 window.HELP_IMPROVE_VIDEOJS = false;
 
@@ -14,9 +14,9 @@ var player = videojs('my-player', {
     playbackRates: [1, 1.25, 1.5, 1.75],
 });
 
-player.ready(function () {
+player.ready(() => {
     // hotkey options (hotkeys plugin)
-    this.hotkeys({
+    player.hotkeys({
         volumeStep: 0.1,
         seekStep: 5,
         enableVolumeScroll: false,
@@ -28,14 +28,13 @@ player.ready(function () {
         let droppedFiles = [...window.myAPI.data];
         droppedFiles.shift();
 
-        createPlaylist(droppedFiles, playlist);
-
-        this.playlist(playlist);
+        // creating playlist and adding it to player
+        player.playlist(makePlaylist(droppedFiles));
 
         //play first video on playlist
-        this.playlist.autoadvance(1);
-        this.play();
-        // empty previous playlist
+        player.playlist.autoadvance(1);
+        $('#playlist-header> div')[0].classList.add('active');
+        $('#playlist> div ')[0].click();
     }
 });
 
@@ -48,45 +47,56 @@ var nextBtn = new button(player, {
     },
 });
 var playlsitToggleBtn = new button(player, {
-    clickHandler: function (event) {
+    clickHandler: (event) => {
         //some actions
         $('.playlist-container')[0].classList.toggle('d-none');
         resizeVideoContainer();
     },
 });
 
-// adding buttons to player
-player.controlBar.addChild(nextBtn, {}, 1);
-player.controlBar.addChild(playlsitToggleBtn, {});
-
 // adding icons to the buttons
 nextBtn.$('.vjs-icon-placeholder').classList.add('vjs-icon-next-item');
 playlsitToggleBtn.$('.vjs-icon-placeholder').classList.add('vjs-icon-chapters');
 
+// adding buttons to player
+player.controlBar.addChild(nextBtn, {}, 1);
+player.controlBar.addChild(playlsitToggleBtn, {});
+
+// saving rate when playbackrate changes
+player.on('ratechange', () => {
+    console.log('ratechange event', player.playbackRate());
+    rate = player.playbackRate();
+});
+
 // on switching to a new content source within a playlist
-player.on('playlistitem', function () {
+player.on('playlistitem', () => {
     //clicking the playlist item to make it active (bootstrap active tab-item)
     $('#' + player.playlist.currentIndex())[0].click();
+    // setting playbackrate
+    player.playbackRate(rate);
 });
 
 // ondrop function for native desktop drag and drop
 function drop(event) {
     event.stopPropagation();
     event.preventDefault();
-    // getting files
     let fileObjects = [...event.dataTransfer.files];
 
     // converting fileList to array to sort by object name
-    fileObjects.forEach((element) => {
-        files.push(element.path);
+    files = fileObjects.map((element) => {
+        return element.path;
     });
 
-    createPlaylist(files, playlist);
+    // empty previous playlist
+    $('#playlist').empty();
+    // creating playlist and adding it to player
+    player.playlist(makePlaylist(files));
 
-    player.playlist(playlist);
     //play first video on playlist
     player.playlist.autoadvance(1);
-    player.play();
+
+    $('#playlist-header> div')[0].classList.add('active');
+    $('#playlist> div')[0].click();
 }
 
 function resizeVideoContainer() {
@@ -117,7 +127,11 @@ function fileNameFromPath(path) {
     return path.slice(lastSlashIndex, path.length);
 }
 
-function createPlaylist(filePathArray, playlist) {
+function makePlaylist(filePathArray) {
+    //clearing playlist
+    let playList = [];
+    $('#playlist').empty();
+
     //natural sorting
     filePathArray.sort((a, b) =>
         a.localeCompare(b, navigator.languages[0] || navigator.language, {
@@ -125,13 +139,9 @@ function createPlaylist(filePathArray, playlist) {
             ignorePunctuation: true,
         })
     );
-
-    //clearing playlist in DOM
-    $('#playlist').empty();
-
     filePathArray.forEach((element, i) => {
         //adding videos to playlist
-        playlist.push({
+        playList.push({
             sources: [
                 {
                     src: element,
@@ -143,7 +153,7 @@ function createPlaylist(filePathArray, playlist) {
         });
 
         //creating playlist-item and adding to the playlist in DOM
-        var playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
+        let playlist_item = $('#playlist-header> div ')[0].cloneNode(true);
         playlist_item.classList.remove('active');
         playlist_item.classList.add('d-flex');
         playlist_item.id = i;
@@ -152,6 +162,5 @@ function createPlaylist(filePathArray, playlist) {
         $('#playlist')[0].appendChild(playlist_item);
     });
 
-    $('#playlist> div')[0].classList.add('active');
-    $('#playlist-header> div ')[0].classList.add('active');
+    return playList;
 }
