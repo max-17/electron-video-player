@@ -15,16 +15,13 @@ var player = videojs('my-player', {
 });
 
 player.ready(() => {
-    // hotkey options (hotkeys plugin)
-    player.hotkeys({
-        volumeStep: 0.1,
-        seekStep: 5,
-        enableVolumeScroll: false,
-        enableModifiersForNumbers: false,
-    });
-    //resize video container
-    resizeVideoContainer();
+    // check if files were opened using 'open with...' option
     if (window.myAPI) {
+        /*
+        The process.argv property returns an array containing the command-line arguments
+         passed when the Node.js process was launched. The first element will be process.execPath.
+         The remaining elements will be any additional command-line arguments. (files' path)
+        */
         let droppedFiles = [...window.myAPI.data];
         droppedFiles.shift();
 
@@ -36,6 +33,16 @@ player.ready(() => {
         $('#playlist-header> div')[0].classList.add('active');
         $('#playlist> div ')[0].click();
     }
+    // player.hotkeys() enables keyboard hotkeys when the player has focus.
+    // setting hotkey options (hotkeys plugin)
+    player.hotkeys({
+        volumeStep: 0.1,
+        seekStep: 5,
+        enableVolumeScroll: false,
+        enableModifiersForNumbers: false,
+    });
+    //resize video container
+    resizeVideoContainer();
 });
 
 //create custom button => nextBtn
@@ -64,7 +71,7 @@ player.controlBar.addChild(playlsitToggleBtn, {});
 
 // saving rate when playbackrate changes
 player.on('ratechange', () => {
-    console.log('ratechange event', player.playbackRate());
+    // console.log('ratechange event', player.playbackRate());
     rate = player.playbackRate();
 });
 
@@ -123,8 +130,8 @@ function play(id) {
 }
 
 function fileNameFromPath(path) {
-    let lastSlashIndex = path.lastIndexOf('\\') + 1;
-    return path.slice(lastSlashIndex, path.length);
+    let lastSlashIndex = path.lastIndexOf('\\');
+    return path.slice(lastSlashIndex + 1, path.length);
 }
 
 function makePlaylist(filePathArray) {

@@ -1,9 +1,17 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
-// You can get the dragged file's path like this
+// You can get the files' pathes like this when 'open with..' is used
+// check preload.js
+
+/*
+The process.argv property returns an array containing the command-line 
+arguments passed when the Node.js process was launched. 
+The first element will be process.execPath. 
+The remaining elements will be any additional command-line arguments. (files' path)
+*/
 if (process.argv.length >= 2) {
-    ipcMain.handle('get-files', (event, someArgument) => process.argv);
+    ipcMain.handle('get-files', () => process.argv);
 }
 
 function createWindow() {
