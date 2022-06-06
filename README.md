@@ -7,4 +7,4 @@ How to use:
   3. To start the app run $node start
   4. drag and drop videos to player
   
-if u want to make a distributabe check out this link https://github.com/electron/electron-packager
+if u want to make a distributable check out this link https://github.com/electron/electron-packager
