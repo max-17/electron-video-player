@@ -2,7 +2,7 @@
 electron video player app
 
 How to use:
-  1. Istall node
+  1. Install node
   2. inside project folder run $node install
   3. To start the app run $node start
   4. drag and drop videos to player
